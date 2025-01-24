@@ -110,7 +110,7 @@ def update_recipe(recipe_id):
     recipe.image_url = data['image_url']
 
     db.session.commit()
- 
+    # Serialize the updated recipe and return it as JSON
     updated_recipe = {
         'id': recipe.id,
         'title': recipe.title,
@@ -120,8 +120,22 @@ def update_recipe(recipe_id):
         'description': recipe.description,
         'image_url': recipe.image_url
     }
-    
+
     return jsonify({'message': 'Recipe updated successfully', 'recipe': updated_recipe})
         
+# Route to delete a recipe
+
+
+@app.route('/api/recipes/<int:recipe_id>', methods=['DELETE'])
+def delete_recipe(recipe_id):
+    recipe = Recipe.query.get(recipe_id)
+    if not recipe:
+        return jsonify({'error': 'Recipe not found'}), 404
+
+    db.session.delete(recipe)
+    db.session.commit()
+    return jsonify({'message': 'Recipe deleted successfully'})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
