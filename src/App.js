@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
+import RecipeExcerpt from "./components/RecipeExcerpt";
 import "./App.css";
 
 function App() {
@@ -26,7 +27,11 @@ function App() {
   return (
     <div className='recipe-app'>
       <Header />
-      {JSON.stringify(recipes)}
+      <div className="recipe-list">
+        {recipes.map((recipe) => (
+          <RecipeExcerpt key={recipe.id} recipe={recipe} />
+        ))}
+      </div>
     </div>
   );
 }
