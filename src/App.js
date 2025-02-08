@@ -8,7 +8,7 @@ import "./App.css";
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [showNewRecipeForm, setShowNewRecipeForm] = (false); 
+  const [showNewRecipeForm, setShowNewRecipeForm] = useState(false);
 
   const [newRecipe, setNewRecipe] = useState({
     title: "",
@@ -16,9 +16,10 @@ function App() {
     instructions: "",
     servings: 1, // conservative default
     description: "",
-    image_url: "https://images.pexels.com/photos/9986228/pexels-photo-9986228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" //default
+    image_url:
+      "https://images.pexels.com/photos/9986228/pexels-photo-9986228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", //default
   });
-  
+
   useEffect(() => {
     const fetchAllRecipes = async () => {
       try {
@@ -45,7 +46,7 @@ function App() {
   };
 
   const hideRecipeForm = () => {
-    setShowNewRecipeForm(false)
+    setShowNewRecipeForm(false);
   };
 
   const showRecipeForm = () => {
@@ -59,16 +60,31 @@ function App() {
   };
 
   return (
-    <div className='recipe-app'>
+    <div className="recipe-app">
       <Header showRecipeForm={showRecipeForm} />
-      {showNewRecipeForm && <NewRecipeForm newRecipe={newRecipe} hideRecipeForm={hideRecipeForm} onUpdateForm={onUpdateForm} />}
-      {selectedRecipe && <RecipeFull selectedRecipe={selectedRecipe} handleUnselectRecipe={handleUnselectRecipe} />}
+      {showNewRecipeForm && (
+        <NewRecipeForm
+          newRecipe={newRecipe}
+          hideRecipeForm={hideRecipeForm}
+          onUpdateForm={onUpdateForm}
+        />
+      )}
+      {selectedRecipe && (
+        <RecipeFull
+          selectedRecipe={selectedRecipe}
+          handleUnselectRecipe={handleUnselectRecipe}
+        />
+      )}
       {!selectedRecipe && (
-      <div className="recipe-list">
-        {recipes.map((recipe) => (
-          <RecipeExcerpt key={recipe.id} recipe={recipe} handleSelectRecipe={handleSelectRecipe} />
-        ))}
-      </div>
+        <div className="recipe-list">
+          {recipes.map((recipe) => (
+            <RecipeExcerpt
+              key={recipe.id}
+              recipe={recipe}
+              handleSelectRecipe={handleSelectRecipe}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

@@ -9,7 +9,13 @@ const NewRecipeForm = ({ newRecipe, onUpdateForm, hideRecipeForm }) => {
 
         <form>
           <label>Title</label>
-          <input type="text" name="title" value={newRecipe.title} onChange={(e) => onUpdateForm(e)} required />
+          <input
+            type="text"
+            name="title"
+            value={newRecipe.title}
+            onChange={(e) => onUpdateForm(e)}
+            required
+          />
 
           <label>Ingredients</label>
           <textarea
@@ -21,16 +27,38 @@ const NewRecipeForm = ({ newRecipe, onUpdateForm, hideRecipeForm }) => {
           />
 
           <label>Instructions</label>
-          <textarea name="instructions" value={newRecipe.instructions} onChange={(e) => onUpdateForm(e)} required />
+          <textarea
+            name="instructions"
+            value={newRecipe.instructions}
+            onChange={(e) => onUpdateForm(e)}
+            required
+          />
 
           <label>Description</label>
-          <textarea name="description" value={newRecipe.description} onChange={(e) => onUpdateForm(e)} required />
+          <textarea
+            name="description"
+            value={newRecipe.description}
+            onChange={(e) => onUpdateForm(e)}
+            required
+          />
 
           <label>Image</label>
-          <input type="text" name="image_url" value={newRecipe.image_url} onChange={(e) => onUpdateForm(e)} required />
+          <input
+            type="text"
+            name="image_url"
+            value={newRecipe.image_url}
+            onChange={(e) => onUpdateForm(e)}
+            required
+          />
 
           <label>Servings</label>
-          <input type="number" name="servings" value={newRecipe.servings} onChange={(e) => onUpdateForm(e)} required />
+          <input
+            type="number"
+            name="servings"
+            value={newRecipe.servings}
+            onChange={(e) => onUpdateForm(e)}
+            required
+          />
 
           <button type="submit">Save Recipe</button>
         </form>

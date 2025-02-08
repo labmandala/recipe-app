@@ -12,9 +12,10 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe }) => {
           <h2>{selectedRecipe.title} </h2>
           <div className="button-container">
             <button className="edit-button">Edit</button>
-            <button className="cancel-button" onClick={handleUnselectRecipe} >
-                < X />
-                Close</button>
+            <button className="cancel-button" onClick={handleUnselectRecipe}>
+              <X />
+              Close
+            </button>
             <button className="delete-button">Delete</button>
           </div>
         </header>
@@ -26,7 +27,7 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe }) => {
 
         <ul className="ingredient-list">
           {selectedRecipe.ingredients.split(",").map((ingredient, index) => (
-            <li className='ingredient' key={index}>
+            <li className="ingredient" key={index}>
               {ingredient}
             </li>
           ))}
