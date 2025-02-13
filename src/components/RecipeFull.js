@@ -1,4 +1,5 @@
 import React from "react";
+import EditRecipeForm from "./EditRecipeForm";
 import { X } from "react-feather";
 
 const RecipeFull = ({ selectedRecipe, handleUnselectRecipe }) => {
