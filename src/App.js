@@ -104,6 +104,7 @@ function App() {
           newRecipe={newRecipe}
           hideRecipeForm={hideRecipeForm}
           onUpdateForm={onUpdateForm}
+          handleNewRecipe={handleNewRecipe}
         />
       )}
       {selectedRecipe && (
