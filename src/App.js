@@ -44,12 +44,12 @@ function App() {
       const response = await fetch("/api/recipes", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(newRecipe)
+        body: JSON.stringify(newRecipe),
       });
 
-      if (response.ok){
+      if (response.ok) {
         const data = await response.json();
 
         setRecipes([...recipes, data.recipe]);
@@ -64,14 +64,50 @@ function App() {
           servings: 1,
           description: "",
           image_url:
-            "https://images.pexels.com/photos/9986228/pexels-photo-9986228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            "https://images.pexels.com/photos/9986228/pexels-photo-9986228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         });
-      }else {
+      } else {
         console.error("Oops - could not add recipe!");
       }
-    }catch(e) {
+    } catch (e) {
       console.error("An error occurred during the request:", e);
     }
+  };
+
+  const handleUpdateRecipe = async (e, selectedRecipe) => {
+    e.preventDefault();
+    const { id } = selectedRecipe;
+
+    try {
+      const response = await fetch(`/api/recipes/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(selectedRecipe)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        setRecipes(
+          recipes.map((recipe) => {
+            if (recipe.id === id) {
+              // Return the saved data from the db
+              return data.recipe;
+            }
+            return recipe;
+          })
+        );
+        console.log("Recipe updated!");
+      } else {
+        console.error("Failed to update recipe. Please try again.");
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred. Please try again later.");
+    }
+
+    setSelectedRecipe(null);
   };
 
   const handleSelectRecipe = (recipe) => {
@@ -91,9 +127,16 @@ function App() {
     setSelectedRecipe(null);
   };
 
-  const onUpdateForm = (e) => {
+  const onUpdateForm = (e, action = "new") => {
     const { name, value } = e.target;
-    setNewRecipe({ ...newRecipe, [name]: value });
+    if (action === "update") {
+      setSelectedRecipe({
+        ...selectedRecipe,
+        [name]: value,
+      });
+    } else if (action === "new") {
+      setNewRecipe({ ...newRecipe, [name]: value });
+    }
   };
 
   return (
@@ -111,6 +154,8 @@ function App() {
         <RecipeFull
           selectedRecipe={selectedRecipe}
           handleUnselectRecipe={handleUnselectRecipe}
+          handleUpdateRecipe={handleUpdateRecipe}
+          onUpdateForm={onUpdateForm}
         />
       )}
       {!selectedRecipe && (
