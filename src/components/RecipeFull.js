@@ -7,6 +7,7 @@ const RecipeFull = ({
   handleUnselectRecipe,
   onUpdateForm,
   handleUpdateRecipe,
+  handleDeleteRecipe
 }) => {
   const [editing, setEditing] = useState(false);
 
