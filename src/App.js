@@ -175,6 +175,7 @@ function App() {
           handleUnselectRecipe={handleUnselectRecipe}
           handleUpdateRecipe={handleUpdateRecipe}
           onUpdateForm={onUpdateForm}
+          handleDeleteRecipe={handleDeleteRecipe}
         />
       )}
       {!selectedRecipe && (
