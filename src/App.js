@@ -9,6 +9,7 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showNewRecipeForm, setShowNewRecipeForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [newRecipe, setNewRecipe] = useState({
     title: "",
@@ -129,6 +130,14 @@ function App() {
     }
   };
 
+  const handleSearch = () => {
+    const searchResults = recipes.filter((recipe) => {
+      const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
+      // Check if the search term is included in any of the values and will return a boolean value
+      return valuesToSearch.some((value) => value.toLowerCase().includes(searchTerm.toLowerCase()));
+    });
+    return searchResults;
+  }
   const handleSelectRecipe = (recipe) => {
     setSelectedRecipe(recipe);
   };
@@ -144,6 +153,10 @@ function App() {
   const showRecipeForm = () => {
     setShowNewRecipeForm(true);
     setSelectedRecipe(null);
+  };
+
+  const updateSearchTerm = (text) => {
+    setSearchTerm(text);
   };
 
   const onUpdateForm = (e, action = "new") => {
