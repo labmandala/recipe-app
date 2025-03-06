@@ -83,9 +83,9 @@ function App() {
       const response = await fetch(`/api/recipes/${id}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(selectedRecipe)
+        body: JSON.stringify(selectedRecipe),
       });
 
       if (response.ok) {
@@ -114,7 +114,7 @@ function App() {
   const handleDeleteRecipe = async (recipeId) => {
     try {
       const response = await fetch(`/api/recipes/${selectedRecipe.id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
       if (response.ok) {
@@ -132,12 +132,18 @@ function App() {
 
   const handleSearch = () => {
     const searchResults = recipes.filter((recipe) => {
-      const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
+      const valuesToSearch = [
+        recipe.title,
+        recipe.ingredients,
+        recipe.description,
+      ];
       // Check if the search term is included in any of the values and will return a boolean value
-      return valuesToSearch.some((value) => value.toLowerCase().includes(searchTerm.toLowerCase()));
+      return valuesToSearch.some((value) =>
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     });
     return searchResults;
-  }
+  };
   const handleSelectRecipe = (recipe) => {
     setSelectedRecipe(recipe);
   };
@@ -171,9 +177,15 @@ function App() {
     }
   };
 
+  const displayedRecipes = searchTerm ? handleSearch() : recipes;
+
   return (
     <div className="recipe-app">
-      <Header showRecipeForm={showRecipeForm} />
+      <Header
+        showRecipeForm={showRecipeForm}
+        updateSearchTerm={updateSearchTerm}
+        searchTerm={searchTerm}
+      />
       {showNewRecipeForm && (
         <NewRecipeForm
           newRecipe={newRecipe}
@@ -193,7 +205,7 @@ function App() {
       )}
       {!selectedRecipe && (
         <div className="recipe-list">
-          {recipes.map((recipe) => (
+          {displayedRecipes.map((recipe) => (
             <RecipeExcerpt
               key={recipe.id}
               recipe={recipe}
