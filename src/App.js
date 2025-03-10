@@ -177,6 +177,12 @@ function App() {
     }
   };
 
+  const displayAllRecipes = () => {
+    hideRecipeForm();
+    handleUnselectRecipe();
+    updateSearchTerm("");
+  };
+
   const displayedRecipes = searchTerm ? handleSearch() : recipes;
 
   return (
@@ -185,6 +191,7 @@ function App() {
         showRecipeForm={showRecipeForm}
         updateSearchTerm={updateSearchTerm}
         searchTerm={searchTerm}
+        displayAllRecipes={displayAllRecipes}
       />
       {showNewRecipeForm && (
         <NewRecipeForm
